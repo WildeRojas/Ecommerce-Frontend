@@ -7,6 +7,8 @@ import { LoginComponent } from './login/login.component';
 import { ProductsComponent } from './products/products.component';
 import { HomeComponent } from './home/home.component';
 import { FooterContactComponent } from './footer-contact/footer-contact.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ProductsDetailsComponent } from './products/products-details/products-details.component';
 
 @NgModule({
   declarations: [
@@ -14,9 +16,11 @@ import { FooterContactComponent } from './footer-contact/footer-contact.componen
     LoginComponent,
     ProductsComponent,
     HomeComponent,
-    FooterContactComponent
+    FooterContactComponent,
+    ProductsDetailsComponent
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule
   ],
