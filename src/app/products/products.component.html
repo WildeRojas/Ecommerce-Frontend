@@ -1,9 +1,30 @@
-<div class="product-list">
-  <div *ngFor="let product of products" class="product-card">
-    <img [src]="product.image" alt="Product Image" class="product-image">
-    <h3>{{ product.name }}</h3>
-    <p>{{ product.description }}</p>
-    <p><strong>Precio:</strong> {{ product.price | currency }}</p>
-    <button class="btn-buy">Comprar</button>
+<div class="flex">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4 ml-auto w-[75%]">
+    <!-- Mostrar spinner mientras carga -->
+    <div *ngIf="isloading" class="col-span-3 flex justify-center py-12">
+      <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-900"></div>
+    </div>
+    <div *ngFor="let product of products"
+      class="bg-white rounded-2xl shadow-lg overflow-hidden transition-transform transform hover:scale-105 flex flex-col h-full">
+      <div class="p-4 flex flex-col flex-grow">
+        <img [src]="product.image || 'assets/default-product.png'" alt="{{product.title}}" class="w-full h-64 object-cover">
+        <h3 class="text-lg font-semibold text-gray-800">{{ product.title }}</h3>
+        <p class="text-gray-600 text-sm mt-1 line-clamp-2">{{ product.description }}</p>
+        <p class="text-gray-900 font-bold mt-2">{{ product.price | currency:'USD':'symbol':'1.2-2' }}</p>
+        
+        <div class="mt-auto pt-4 space-y-2">
+          <button (click)="onViewDetail(product)"
+            class="w-full bg-gradient-to-r from-purple-900 via-indigo-800 to-blue-900 text-white font-medium py-2 rounded-lg transition-all duration-300 hover:from-purple-800 hover:to-blue-800">
+            Ver Detalles
+          </button>
+          <button 
+            class="w-full bg-gradient-to-r from-red-600 to-red-800 text-white font-medium py-2 rounded-lg transition-all duration-300 hover:from-red-700 hover:to-red-900">
+            Comprar
+          </button>
+        </div> 
+      </div>
+    </div>
   </div>
 </div>
+
+<app-footer-contact></app-footer-contact>

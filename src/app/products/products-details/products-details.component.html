@@ -1,1 +1,59 @@
-<p>products-details works!</p>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div *ngIf="isloading" class="flex justify-center py-12">
+      <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-900"></div>
+    </div>
+  
+    <div *ngIf="productDetail && !isloading" class="bg-white rounded-2xl shadow-xl overflow-hidden">
+      <div class="md:flex">
+        <div class="md:w-1/2">
+          <img [src]="productDetail.image || 'assets/default-product.png'" 
+               alt="{{productDetail.title}}"
+               class="w-full h-full object-cover">
+        </div>
+        
+        <div class="p-8 md:w-1/2">
+          <h1 class="text-3xl font-bold text-gray-900">{{ productDetail.title }}</h1>
+          
+          <div class="mt-4">
+            <span class="text-2xl font-bold text-gray-900">
+              {{ productDetail.price | currency:'USD':'symbol':'1.2-2' }}
+            </span>
+            <span *ngIf="productDetail.price" class="ml-2 text-sm text-gray-500 line-through">
+              {{ productDetail.price | currency:'USD':'symbol':'1.2-2' }}
+            </span>
+          </div>
+  
+          <div class="mt-6">
+            <h2 class="text-lg font-semibold text-gray-800">Descripción</h2>
+            <p class="mt-2 text-gray-600">{{ productDetail.description || 'No hay descripción disponible' }}</p>
+          </div>
+          <div *ngIf="productDetail.description" class="mt-6">
+            <h2 class="text-lg font-semibold text-gray-800">Características</h2>
+            <ul class="mt-2 list-disc list-inside text-gray-600">
+              <li *ngFor="let feature of productDetail.description">{{ feature }}</li>
+            </ul>
+          </div>
+
+          <div class="mt-8 space-y-4">
+            <button 
+              class="w-full bg-gradient-to-r from-purple-900 to-blue-900 text-white font-medium py-3 rounded-lg hover:from-purple-800 hover:to-blue-800 transition-all">
+              Añadir al carrito
+            </button>
+            <button 
+              class="w-full bg-gradient-to-r from-red-600 to-red-800 text-white font-medium py-3 rounded-lg hover:from-red-700 hover:to-red-900 transition-all">
+              Comprar ahora
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div *ngIf="!productDetail && !isloading" class="text-center py-12">
+      <h2 class="text-2xl font-bold text-gray-800">Producto no encontrado</h2>
+      <p class="mt-2 text-gray-600">Lo sentimos, no pudimos encontrar el producto solicitado.</p>
+      <button routerLink="/products"
+        class="mt-4 px-6 py-2 bg-purple-900 text-white rounded-lg hover:bg-purple-800 transition-colors">
+        Volver a los productos
+      </button>
+    </div>
+  </div>
